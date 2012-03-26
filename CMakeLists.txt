@@ -1,0 +1,8 @@
+project (NewTab)
+find_package(KDE4 REQUIRED)
+include (KDE4Defaults)
+include_directories(${KDE4_INCLUDES})
+set(NewTab_SRCS main.cpp tabwidget.cpp tabmainwindow.cpp tabpreviewpopup.cpp)
+kde4_add_executable(NewTab ${NewTab_SRCS})
+target_link_libraries(NewTab ${KDE4_KDEUI_LIBS})
+install(TARGETS NewTab ${INSTALL_TARGETS_DEFAULT_ARGS})
