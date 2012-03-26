@@ -19,7 +19,7 @@ private:
     QLabel *m_thumbnail;
 
 private:
-    void setThumbnail(QPixmap &pixmap);
+    void setThumbnail(const QPixmap &pixmap);
     void setPreview(QWidget *wid);
 };
 

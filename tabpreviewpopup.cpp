@@ -2,7 +2,7 @@
 
 TabPreviewPopup::TabPreviewPopup( QWidget *wid, QWidget *parent ): KPassivePopup(parent), m_thumbnail(new QLabel(this))
 {
-    m_thumbnail->setAlignment(QT::AlignHCenter);
+    m_thumbnail->setAlignment(Qt::AlignHCenter);
     QVBoxLayout *vb = new QVBoxLayout(this);
     vb->addWidget(m_thumbnail);
     this->setLayout(vb);
@@ -38,7 +38,6 @@ TabPreviewPopup::TabPreviewPopup( QWidget *wid, QWidget *parent ): KPassivePopup
 TabPreviewPopup::~TabPreviewPopup()
 {
     delete m_thumbnail;
-    delete vb;
 }
 
 
@@ -48,7 +47,9 @@ void TabPreviewPopup::setPreview(QWidget *wid)
     int h = wid->size().height() / wid->size().width() ;
     QPixmap thumb(wid->size());
     wid->render(&thumb);
-    setThumbnail(thumb.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+    QPixmap thumbPic;
+    thumbPic = thumb.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    setThumbnail(thumbPic);
 
 }
 

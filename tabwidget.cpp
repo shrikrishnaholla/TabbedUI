@@ -6,8 +6,10 @@ TabWidget::TabWidget(QWidget *parent):KTabWidget(parent)
 
     m_text = new KTextEdit(QString("Hello World!"));
 
+    QPicture pic;
+    pic.load("kde.png");
     m_picture = new QLabel;
-    m_picture->setPicture(m_picture->QPicture::load("kde.png"));
+    m_picture->setPicture( pic );
 
     m_label = new QLabel(tr("Hello World"));
 
