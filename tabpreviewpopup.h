@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QPalette>
 #include <QWidget>
+#include <QPixmap>
 
 #include "tabwidget.h"
 
@@ -17,6 +18,7 @@ public:
 
 private:
     QLabel *m_thumbnail;
+    QVBoxLayout *m_vb;
 
 private:
     void setThumbnail(const QPixmap &pixmap);

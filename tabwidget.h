@@ -13,8 +13,11 @@
 #include <Qt>
 #include <QHoverEvent>
 #include <QPicture>
+#include <QLabel>
 
 #include "tabpreviewpopup.h"
+
+class TabPreviewPopup;
 
 class TabWidget: public KTabWidget
 {
@@ -39,6 +42,7 @@ public slots:
 
 protected:
     virtual void mouseMoveEvent(QMouseEvent *event);
+    virtual void leaveEvent(QMouseEvent *event);
 
 private:
 
@@ -46,6 +50,7 @@ private:
     QLabel* m_picture;
     QLabel* m_label;
 
+    TabPreviewPopup *m_tab;
 
 };
 

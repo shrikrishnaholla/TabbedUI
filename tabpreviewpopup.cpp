@@ -3,13 +3,13 @@
 TabPreviewPopup::TabPreviewPopup( QWidget *wid, QWidget *parent ): KPassivePopup(parent), m_thumbnail(new QLabel(this))
 {
     m_thumbnail->setAlignment(Qt::AlignHCenter);
-    QVBoxLayout *vb = new QVBoxLayout(this);
-    vb->addWidget(m_thumbnail);
-    this->setLayout(vb);
+    m_vb = new QVBoxLayout(this);
+    m_vb->addWidget(m_thumbnail);
+    this->setLayout(m_vb);
     layout()->setAlignment(Qt::AlignTop);
     layout()->setMargin(0);
 
-    setPopupStyle(KPassivePopup::Boxed);
+    setPopupStyle(KPassivePopup::CustomStyle);
 
     QPalette p;
     // Use Tooltip's colors
@@ -27,7 +27,7 @@ TabPreviewPopup::TabPreviewPopup( QWidget *wid, QWidget *parent ): KPassivePopup
     setWindowOpacity(style()->styleHint(QStyle::SH_ToolTipLabel_Opacity, 0, this) / 255.0);
 
     // margins
-    const int margin = 1 + style()->pixelMetric(QStyle::PM_ToolTipLabelFrameWidth, 0, this);
+    const int margin = style()->pixelMetric(QStyle::PM_ToolTipLabelFrameWidth, 0, this);
     setContentsMargins(margin, margin, margin, margin);
 
     setPreview(wid);
@@ -38,18 +38,18 @@ TabPreviewPopup::TabPreviewPopup( QWidget *wid, QWidget *parent ): KPassivePopup
 TabPreviewPopup::~TabPreviewPopup()
 {
     delete m_thumbnail;
+    delete m_vb;
 }
 
 
 void TabPreviewPopup::setPreview(QWidget *wid)
 {
-    int w = (wid->parentWidget()->sizeHint().width() /4 );
-    int h = wid->size().height() / wid->size().width() ;
+    int w = (wid->parentWidget()->sizeHint().width() /4 ) - 5 ;
+    int h = ( wid->size().height() / wid->size().width() );
     QPixmap thumb(wid->size());
     wid->render(&thumb);
-    QPixmap thumbPic;
-    thumbPic = thumb.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    setThumbnail(thumbPic);
+    thumb = thumb.scaledToWidth(w, Qt:: SmoothTransformation);
+    setThumbnail(thumb);
 
 }
 

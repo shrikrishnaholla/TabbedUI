@@ -12,8 +12,8 @@ thumbnail.
 What's been successfully accomplished
 -------------------------------------------------------------------------------------
 1: I do get a window with tabs :P
-2: I get previews. (Too ugly to be mentioned as an accomplishment. But at this stage,
-   for me atleast, it *is* an accomplishment :)
+2: I get previews. ( I've managed to make it less of a mess, yet gotta work on a few
+   finer points )
 3: I was really doubtful whether I'd be able to make sure the tabs come up only when
    mouse hovers on *inactive* tabs. Thankfully, that didn't prove to be too difficult
 4: Was worried that thumbnails would come up at odd positions. Luckily, they don't
@@ -34,15 +34,18 @@ What's being tried
 -------------------------------------------------------------------------------------
 1: Trying to read rekonq's handling of similar task and trying to apply it to this
    task (as much as possible)
-2: Trying to get the previews to be a little less ugly (The preview images are too
-   small)
-3: Image in tab2 is not being loaded. Have to work on that.
-4: The previews are being destroyed after a long time (destructor waits for some time
-   to verify that the memory location is actually freed. This has to be speedened up.
+2: Image in tab2 is not being loaded. Have to work on that.
+3: The previews are being destroyed after a long time (destructor waits for some time
+   to verify that the memory location is actually freed. This has to be speedened up)
+4: The behaviour of the hovering and popping up of previews is wierd (sometimes it
+   pops up and sometimes it doesn't) -maybe because of delay in destructor invocation
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 What needs to be done in the future
 -------------------------------------------------------------------------------------
+   At present, my strategy has been : "Get the work done - By hook or crook ". Got to
+switch to the sweeter philosophy - "Get the work done - Do it right" :)
+
 1: Presently, I've manually created three tabs. It should be generalized with an 'add
    Tab' button next to the rightmost tab.
 2: Handling of slots/variables/signals is highly inefficient. Improvement needed.
@@ -53,6 +56,9 @@ What needs to be done in the future
 Questions to be answered
 -------------------------------------------------------------------------------------
 1: How do I control the position where a widget is created?
+2: Presently, destructor is being called on the previews when mouse is moved to the
+   right of the rightmost tab, but not when it moves into the child widget (ie, the
+   widget within the tab). How do I repair this?
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 Potential solutions to questions previously in 'to be answered' section
@@ -63,6 +69,13 @@ Solution: Override mouseMoveEvent() and use tabRect()
 2: How do I get info from individual tab for preview?
 Solution: Not possible unless you have *some* content in the tab. So create content
           and collect it's info :)
+
+3: Why were the image previews so ugly and how do I retify them?
+Solution: Since I hadn't enabled hover to the widget and instead used the QRect's
+          contains() method to emit the signal, a new preview popup was created every
+          time the mouse moved within the tabs. So multiple instances lead to the
+          ugly nature of popups. So I created a local preview object and checked for
+          existence of previews before creating new ones
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 What's great about this task
